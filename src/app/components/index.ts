@@ -1,5 +1,6 @@
 export * from "./Htag/Htag"
 export * from "./Htag/Htag.enum"
-
 export * from "./button/button"
 export * from "./button/button.enum"
+export * from "./tag/tag"
+export * from "./tag/tag.enum"
