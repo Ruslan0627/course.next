@@ -1,8 +1,18 @@
-import { ARROW_BUTTON_VARIANT, Button, BUTTON_VARIANT, Htag, TAG_SIZE, TAG_VARIANT } from "./components"
-import { H_TAG_VARIANT } from "./components"
+"use client"
+import { useState } from "react";
+import { 
+  ARROW_BUTTON_VARIANT, 
+  Button, 
+  BUTTON_VARIANT, 
+  Htag, 
+  H_TAG_VARIANT, 
+  TAG_VARIANT, 
+  TAG_SIZE,
+  Rating} from "./components"
 import Tag from "./components/tag/tag";
 
 export default function Home() {
+  const [rating, setRating] = useState<number>(0)
   return (
     <div>
       <h1>Main Page</h1>
@@ -17,6 +27,7 @@ export default function Home() {
       <Tag size={TAG_SIZE.S} varinat={TAG_VARIANT.PRIMARY}> Работа в Photoshop</Tag>
       <Tag size={TAG_SIZE.M} varinat={TAG_VARIANT.GREEN}>10 000</Tag>
       <Tag size={TAG_SIZE.M} varinat={TAG_VARIANT.GRAY}>10</Tag>
+      <Rating rating={rating} isEditable setRating={setRating}/>
     </div>
   );
 }
