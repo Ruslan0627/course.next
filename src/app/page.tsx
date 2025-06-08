@@ -10,8 +10,9 @@ import {
   TAG_SIZE,
   Rating} from "./components"
 import Tag from "./components/tag/tag";
+import { WithLayout } from "./layout/layout";
 
-export default function Home() {
+ function Home() {
   const [rating, setRating] = useState<number>(0)
   return (
     <div>
@@ -31,3 +32,4 @@ export default function Home() {
     </div>
   );
 }
+export default WithLayout(Home)
