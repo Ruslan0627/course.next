@@ -1,5 +1,3 @@
-"use client"
-import { useState } from "react";
 import { 
   ARROW_BUTTON_VARIANT, 
   Button, 
@@ -10,9 +8,12 @@ import {
   TAG_SIZE,
   Rating} from "./components"
 import Tag from "./components/tag/tag";
+import { WithLayout } from "./layout/layout";
+import axios, { AxiosError } from "axios";
+import { IMenuItem } from "./interfaces/menu.interface";
 
-export default function Home() {
-  const [rating, setRating] = useState<number>(0)
+ async function Home() {
+  const data = await getMenuItems()
   return (
     <div>
       <h1>Main Page</h1>
@@ -27,7 +28,32 @@ export default function Home() {
       <Tag size={TAG_SIZE.S} varinat={TAG_VARIANT.PRIMARY}> Работа в Photoshop</Tag>
       <Tag size={TAG_SIZE.M} varinat={TAG_VARIANT.GREEN}>10 000</Tag>
       <Tag size={TAG_SIZE.M} varinat={TAG_VARIANT.GRAY}>10</Tag>
-      <Rating rating={rating} isEditable setRating={setRating}/>
+      <Rating 
+      rating={4} 
+      isEditable/>
+      <ul>
+      {
+        data?.menu.map( m =>
+          <li key={m._id.secondCategory}>
+            {m._id.secondCategory}
+          </li>)
+      }
+      </ul>
     </div>
   );
 }
+
+export const getMenuItems = async () => {
+try {  const firstCategory = 0
+  const { data: menu } = await axios.post<IMenuItem[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}top-page/find`,{ firstCategory });
+  return {
+    menu
+  }}
+  catch (e) {
+    if (e instanceof AxiosError){
+         throw new Error(e.message)
+    }
+  }
+}
+
+export default WithLayout(Home)
